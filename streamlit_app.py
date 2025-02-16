@@ -29,6 +29,23 @@ if "feedback" not in st.session_state:
     st.session_state.feedback = ""
 if "input_text" not in st.session_state:
     st.session_state.input_text = ""
+# ----------------- NEW: Loading System Prompt from file -----------------
+def load_system_prompt(file_path="system_prompt.txt"):
+    """
+    Loads the system prompt from a specified text file.
+
+    Args:
+        file_path (str): Path to the system prompt file.
+
+    Returns:
+        str: The content of the system prompt file, stripped of leading/trailing whitespace.
+    """
+    try:
+        with open(file_path, "r", encoding="utf-8") as file:
+            return file.read().strip()
+    except Exception as e:
+        print(f"Error loading system prompt from {file_path}: {e}")
+        return ""
 
 # ----------------- NEW: OpenAI API Response Function -----------------
 def generate_response(prompt):
