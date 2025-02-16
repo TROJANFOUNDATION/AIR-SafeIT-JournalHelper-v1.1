@@ -115,25 +115,48 @@ if st.session_state.view == "input":
             st.warning("Udfyld venligst alle felter før du sender journalnotatet.")
 
 elif st.session_state.view == "output":
-    # -------- Output View (New Generated Content) --------
+    # -------- Output View (Updated Generated Content) --------
     st.markdown("</div>", unsafe_allow_html=True)  # Ensure previous div is closed
     st.title("Generated Journal")
 
-    st.subheader("Headline")
-    st.write(st.session_state.headline)
-
-    st.subheader("Generated Text")
-    st.write(st.session_state.generated_text)
-
-    st.subheader("Feedback to Supervisor")
-    st.write(st.session_state.feedback)
-
+    # Editable textarea for headline
+    st.text_area("Headline", value=st.session_state.headline, key="headline_output")
+    
+    # Non-editable textarea for generated text
+    st.text_area("Generated Text", value=st.session_state.generated_text, key="generated_text_output", disabled=True, height=200)
+    
+    # Editable textarea for feedback
+    st.text_area("Feedback to Supervisor", value=st.session_state.feedback, key="feedback_output", height=150)
+    
     col1, col2, col3 = st.columns(3)
     with col1:
         if st.button("COPY TEXT"):
             copy_script = f"""
             <script>
-            navigator.clipboard.writeText({st.session_state.generated_text!r});
+            function copyToClipboard(text) {{
+                if (navigator.clipboard) {{
+                    navigator.clipboard.writeText(text).then(function() {{
+                        console.log("Text copied successfully");
+                    }}, function(err) {{
+                        console.error("Error copying text: ", err);
+                        // Fallback method using document.execCommand
+                        var textArea = document.createElement("textarea");
+                        textArea.value = text;
+                        document.body.appendChild(textArea);
+                        textArea.select();
+                        document.execCommand("copy");
+                        document.body.removeChild(textArea);
+                    }});
+                }} else {{
+                    var textArea = document.createElement("textarea");
+                    textArea.value = text;
+                    document.body.appendChild(textArea);
+                    textArea.select();
+                    document.execCommand("copy");
+                    document.body.removeChild(textArea);
+                }}
+            }}
+            copyToClipboard({st.session_state.generated_text!r});
             </script>
             """
             st.markdown(copy_script, unsafe_allow_html=True)
