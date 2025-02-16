@@ -1,6 +1,6 @@
 import streamlit as st
 import datetime
-
+import openai  # NEW: Import OpenAI for API calls
 
 # Custom CSS for styling
 def local_css(file_name):
@@ -9,7 +9,57 @@ def local_css(file_name):
 
 local_css("safeit.css")
 
+# ----------------- NEW: OpenAI API Setup -----------------
+# In your .streamlit/secrets.toml, include:
+# [openai]
+# api_key = "YOUR_OPENAI_API_KEY"
+openai.api_key = st.secrets["openai"]["api_key"]
+
 st.markdown("<div class='turquoise-bg'>", unsafe_allow_html=True)
+
+# ----------------- NEW: Session State Initialization -----------------
+if "view" not in st.session_state:
+    st.session_state.view = "input"  # "input" for form view, "output" for generated view
+if "headline" not in st.session_state:
+    st.session_state.headline = ""
+if "generated_text" not in st.session_state:
+    st.session_state.generated_text = ""
+if "feedback" not in st.session_state:
+    st.session_state.feedback = ""
+if "input_text" not in st.session_state:
+    st.session_state.input_text = ""
+
+# ----------------- NEW: OpenAI API Response Function -----------------
+def generate_response(prompt):
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=[{"role": "user", "content": prompt}],
+        max_tokens=200,
+        temperature=0.7
+    )
+    result = response.choices[0].message.content.strip()
+    parts = result.split("\n")
+    headline = parts[0] if len(parts) > 0 else ""
+    generated_text = parts[1] if len(parts) > 1 else ""
+    feedback = parts[2] if len(parts) > 2 else ""
+    return headline, generated_text, feedback
+
+# ----------------- NEW: Callback Functions -----------------
+def generate_new_text():
+    # Re-generate output using the stored input_text
+    headline, generated_text, feedback = generate_response(st.session_state.input_text)
+    st.session_state.headline = headline
+    st.session_state.generated_text = generated_text
+    st.session_state.feedback = feedback
+
+def start_over():
+    # Reset session state to show the input form again
+    st.session_state.view = "input"
+    st.session_state.headline = ""
+    st.session_state.generated_text = ""
+    st.session_state.feedback = ""
+    st.session_state.input_text = ""
+    st.experimental_rerun()
 
 # HEADER
 col1, col2 = st.columns([4, 1])
