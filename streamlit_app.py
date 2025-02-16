@@ -1,6 +1,7 @@
 import streamlit as st
 import datetime
 
+
 # Custom CSS for styling
 def local_css(file_name):
     with open(file_name) as f:
