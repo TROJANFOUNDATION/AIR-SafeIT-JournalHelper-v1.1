@@ -1,6 +1,7 @@
 import streamlit as st
 import datetime
 from openai import OpenAI
+from st_copy_to_clipboard import st_copy_to_clipboard
 
 client = OpenAI(api_key=st.secrets["openai"]["api_key"])  # NEW: Import OpenAI for API calls
 
@@ -130,37 +131,7 @@ elif st.session_state.view == "output":
     
     col1, col2, col3 = st.columns(3)
     with col1:
-        if st.button("COPY TEXT"):
-            copy_script = f"""
-            <script>
-            function copyToClipboard(text) {{
-                if (navigator.clipboard) {{
-                    navigator.clipboard.writeText(text).then(function() {{
-                        console.log("Text copied successfully");
-                    }}, function(err) {{
-                        console.error("Error copying text: ", err);
-                        // Fallback method using document.execCommand
-                        var textArea = document.createElement("textarea");
-                        textArea.value = text;
-                        document.body.appendChild(textArea);
-                        textArea.select();
-                        document.execCommand("copy");
-                        document.body.removeChild(textArea);
-                    }});
-                }} else {{
-                    var textArea = document.createElement("textarea");
-                    textArea.value = text;
-                    document.body.appendChild(textArea);
-                    textArea.select();
-                    document.execCommand("copy");
-                    document.body.removeChild(textArea);
-                }}
-            }}
-            copyToClipboard({st.session_state.generated_text!r});
-            </script>
-            """
-            st.markdown(copy_script, unsafe_allow_html=True)
-            st.success("Text copied!")
+        st_copy_to_clipboard("Copy this to clipboard")
     with col2:
         st.button("Generate new text", on_click=generate_new_text)
     with col3:
