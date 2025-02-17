@@ -76,13 +76,33 @@ def generate_response(date_time, author, citizen_name, journal_entry):
     developer_prompt = load_system_prompt()
 
     # Construct the user prompt with improved formatting
-    user_prompt = (
-        f"Journal Entry Details:\n"
-        f"Date: {date_time.strftime('%d/%m/%Y')}\n"
-        f"Author: {author}\n"
-        f"Citizen Name: {citizen_name}\n"
-        f"Journal Entry: {journal_entry}"
-    )
+    # user_prompt = (
+    #     f"Journal Entry Details:\n"
+    #     f"Date: {date_time.strftime('%d/%m/%Y')}\n"
+    #     f"Author: {author}\n"
+    #     f"Citizen Name: {citizen_name}\n"
+    #     f"Journal Entry: {journal_entry}"
+    # )
+    # Improved user prompt to include dynamic user data
+    user_prompt = f"""
+    This is my journal entry and key information about it. Please follow your developer/system instructions and use the data I have included to generate a better report and headline.
+
+    <entry_date>
+    {date_time.strftime('%Y-%m-%d')}
+    </entry_date>
+
+    <author_name>
+    {author}
+    </author_name>
+
+    <citizen_name>
+    {citizen_name}
+    </citizen_name>
+
+    <journal_entry>
+    {journal_entry}
+    </journal_entry>
+    """
 
     # Construct messages for the API request following OpenAI best practices
     messages = [
