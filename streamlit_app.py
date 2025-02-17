@@ -58,6 +58,21 @@ def load_system_prompt(file_path=".streamlit/system_prompt.txt"):
         print(f"Error loading system prompt from {file_path}: {e}")
         return ""
 
+# ----------------- NEW: Parsing now standalone function -----------------
+def parse_response(response):
+    """
+    Parses the response from the OpenAI API to extract headline, generated text, and feedback based on specific tags.
+    """
+    content = response.choices[0].message.content.strip()
+    headline = re.search(r'<headline>(.*?)</headline>', content, re.DOTALL)
+    generated_text = re.search(r'<improved_entry>(.*?)</improved_entry>', content, re.DOTALL)
+    feedback = re.search(r'<supervisor_feedback>(.*?)</supervisor_feedback>', content, re.DOTALL)
+    return (
+        headline.group(1).strip() if headline else "",
+        generated_text.group(1).strip() if generated_text else "",
+        feedback.group(1).strip() if feedback else ""
+    )
+
 # ----------------- NEW: OpenAI API Response Function -----------------
 def generate_response(date_time, author, citizen_name, journal_entry):
     """
@@ -115,16 +130,17 @@ def generate_response(date_time, author, citizen_name, journal_entry):
     response = client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=messages,
-        max_tokens=500,
+        max_tokens=4096,
         temperature=0.7
     )
     
-    result = response.choices[0].message.content.strip()
-    parts = result.split("\n")
-    headline = parts[0] if len(parts) > 0 else ""
-    generated_text = parts[1] if len(parts) > 1 else ""
-    feedback = parts[2] if len(parts) > 2 else ""
-    return headline, generated_text, feedback
+    # result = response.choices[0].message.content.strip()
+    # parts = result.split("\n")
+    # headline = parts[0] if len(parts) > 0 else ""
+    # generated_text = parts[1] if len(parts) > 1 else ""
+    # feedback = parts[2] if len(parts) > 2 else ""
+    # return headline, generated_text, feedback
+    return parse_response(response)
 
 # ----------------- NEW: Callback Functions -----------------
 def generate_new_text():
