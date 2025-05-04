@@ -20,9 +20,9 @@ You will be provided with the following information:
 
 Here are the best practices for writing effective journal entries:
 
-0. Include the {{ENTRY_DATE}} at the top of the improved entry
+0. Include the {{ENTRY_DATE}} at the top of the improved entry. but exclude the <entry_date> enclosing tags from the response
 1. Be objective and factual, avoiding personal opinions or judgments
-2. Use clear and concise language, ensure using verbs and definite articles consistently for readability
+2. Use clear and concise language, ensure using verbs and definite articles consistently for readability. Make absolutely sure, wihtout fail, that you do not shorten long inputs - this is a risk for removing information.
 3. Include specific details about the interaction, including date, time, and location
 4. Document the citizen's behavior, mood, and any changes observed
 5. Record any interventions or services provided
