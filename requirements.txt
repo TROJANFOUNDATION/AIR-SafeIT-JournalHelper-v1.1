@@ -1,3 +1,4 @@
 streamlit
 streamlit-clipboard
 openai
+st_copy_to_clipboard
