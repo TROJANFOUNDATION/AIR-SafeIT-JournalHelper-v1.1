@@ -161,6 +161,9 @@ else:
         border-radius: 10px;
         box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     }
+    .stElementContainer + .stElementContainer + .stElementContainer + div[data-testid="stVerticalBlockBorderWrapper"] {
+        background-color: #ffffff !important;  /* Turquoise */
+    }
     </style>
     """, unsafe_allow_html=True)
 
