@@ -8,13 +8,19 @@ div[data-testid="stForm"] {
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }   
 
-.stTextInput, .stTextArea, .stDateInput {
+/* Style the container on the results page by selecting the container
+   that follows the title's div. */
+
+div[data-testid="stTextInput"], 
+div[data-testid="stTextArea"], 
+div[data-testid="stDateInput"] {
     background-color: white !important;
     border-radius: 5px;
     padding: 10px;
     border: 1px solid #D0D0D0;
 }
-.stTextArea textarea {
+
+div[data-testid="stTextArea"] textarea {
     height: 150px !important;
 }
 .stButton button {

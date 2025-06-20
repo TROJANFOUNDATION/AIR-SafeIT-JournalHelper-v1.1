@@ -129,7 +129,6 @@ with col1:
 
 # Main app: conditional form + output
 if st.session_state.show_form:
-    st.markdown("<div class='turquoise-bg'><div class='form-container'>", unsafe_allow_html=True)
     with st.form("journal_form"):
         st.date_input(
             "Dato", format="DD/MM/YYYY", key="input_date"
@@ -149,35 +148,52 @@ if st.session_state.show_form:
             "Gennemgå Journalnotat",
             on_click=submit_journal
         )
-    st.markdown("</div></div>", unsafe_allow_html=True)
 else:
+    # Second page content
     st.title("Genereret journal")
-    st.markdown("<div class='turquoise-bg'><div class='form-container'>", unsafe_allow_html=True)
-    st.text_area(
-        "Headline", value=st.session_state.headline, key="headline_output",
-        kwargs={"class": "headlines"}
-    )
-    st.text_area(
-        "Genereret tekst", value=st.session_state.generated_text,
-        key="generated_text_output", disabled=True, height=200
-    )
-    st.text_area(
-        "Feedback til supervisor", value=st.session_state.feedback,
-        key="feedback_output", height=150
-    )
-    plain_text = (
-        f"Headline: {st.session_state.headline}\n"
-        f"Generated Text: {st.session_state.generated_text}\n"
-        f"Feedback to Supervisor: {st.session_state.feedback}\n"
-    )
-    col1, col2, col3 = st.columns(3)
-    with col1:
-        st_copy_to_clipboard(
-            plain_text,
-            before_copy_label='Tryk for at kopiere',
-            after_copy_label='Tekst kopieret!'
+
+    # Apply special styling to results container
+    st.markdown("""
+    <style>
+    .stElementContainer + div[data-testid="stVerticalBlockBorderWrapper"] {
+        background-color: #C1E7E7 !important;  /* Turquoise */
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
+    with st.container():
+        # Text areas inside the styled container
+        st.text_area(
+            "Headline", value=st.session_state.headline, key="headline_output",
         )
-    with col2:
-        st.button("Generér ny tekst", on_click=generate_new_text)
-    with col3:
-        st.button("Start forfra", on_click=start_over)
+        st.text_area(
+            "Genereret tekst", value=st.session_state.generated_text,
+            key="generated_text_output", disabled=True, height=200
+        )
+        st.text_area(
+            "Feedback til supervisor", value=st.session_state.feedback,
+            key="feedback_output", height=150
+        )
+        
+        # Create the copy text
+        plain_text = (
+            f"Headline: {st.session_state.headline}\n"
+            f"Generated Text: {st.session_state.generated_text}\n"
+            f"Feedback to Supervisor: {st.session_state.feedback}\n"
+        )
+        
+        # Buttons in columns - still inside the results container
+        col1, col2, col3 = st.columns(3)
+        with col1:
+            st_copy_to_clipboard(
+                plain_text,
+                before_copy_label='Tryk for at kopiere',
+                after_copy_label='Tekst kopieret!'
+            )
+        with col2:
+            st.button("Generér ny tekst", on_click=generate_new_text)
+        with col3:
+            st.button("Start forfra", on_click=start_over)
