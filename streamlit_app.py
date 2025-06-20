@@ -7,6 +7,18 @@ from st_copy_to_clipboard import st_copy_to_clipboard
 # Initialize OpenAI client
 client = OpenAI(api_key=st.secrets["openai"]["api_key"])
 
+# Initialize session state for inputs to ensure they persist across reruns
+if "show_form" not in st.session_state:
+    st.session_state.show_form = True
+if "input_date" not in st.session_state:
+    st.session_state.input_date = datetime.date.today()
+if "input_author" not in st.session_state:
+    st.session_state.input_author = ""
+if "input_citizen" not in st.session_state:
+    st.session_state.input_citizen = ""
+if "input_journal" not in st.session_state:
+    st.session_state.input_journal = ""
+
 # Load custom CSS
 def local_css(file_name):
     with open(file_name) as f:
@@ -56,9 +68,9 @@ def generate_response(date_time, author, citizen, entry):
     )
     return parse_response(resp)
 
-# Initialize form visibility flag
-if "show_form" not in st.session_state:
-    st.session_state.show_form = True
+# # Initialize form visibility flag
+# if "show_form" not in st.session_state:
+#     st.session_state.show_form = True
 
 # Callback to handle initial form submission
 def submit_journal():
@@ -68,7 +80,14 @@ def submit_journal():
     if not (author and citizen and entry):
         st.warning("Udfyld venligst alle felter før du sender journalnotatet.")
         return
-    dt = st.session_state.input_date
+    
+    # Copy input values to persistent, non-widget-bound session state keys
+    st.session_state.persistent_date = st.session_state.input_date
+    st.session_state.persistent_author = st.session_state.input_author
+    st.session_state.persistent_citizen = st.session_state.input_citizen
+    st.session_state.persistent_journal = st.session_state.input_journal
+    
+    dt = st.session_state.persistent_date
     hl, txt, fb = generate_response(dt, author, citizen, entry)
     st.session_state.headline = hl
     st.session_state.generated_text = txt
@@ -77,14 +96,16 @@ def submit_journal():
 
 # Callback to regenerate text from stored inputs
 def generate_new_text():
-    dt = st.session_state.input_date
-    auth = st.session_state.input_author
-    cit = st.session_state.input_citizen
-    ent = st.session_state.input_journal
+    dt = st.session_state.persistent_date
+    auth = st.session_state.persistent_author
+    cit = st.session_state.persistent_citizen
+    ent = st.session_state.persistent_journal
     hl, txt, fb = generate_response(dt, auth, cit, ent)
     st.session_state.headline = hl
     st.session_state.generated_text = txt
     st.session_state.feedback = fb
+    st.session_state.show_form = False
+
 
 # Callback to reset everything
 def start_over():
@@ -94,24 +115,24 @@ def start_over():
     st.session_state.show_form = True
 
 # HEADER
-col1, col2 = st.columns([4, 1])
+col1, = st.columns([1])
 with col1:
     st.markdown(
         "<div class='header'>JournalHelper<br><small>Velkommen til din personlige hjælper</small></div>",
         unsafe_allow_html=True
     )
-with col2:
-    st.image(
-        "https://air-safeit-editor-frontend-v0-3.onrender.com/safe-it-logo.png",
-        width=280
-    )
+# with col2:
+    # st.image(
+    #     "https://air-safeit-editor-frontend-v0-3.onrender.com/safe-it-logo.png",
+    #     width=280
+    # )
 
 # Main app: conditional form + output
 if st.session_state.show_form:
     st.markdown("<div class='turquoise-bg'><div class='form-container'>", unsafe_allow_html=True)
     with st.form("journal_form"):
         st.date_input(
-            "Dato og klokkeslæt", datetime.date.today(), format="DD/MM/YYYY", key="input_date"
+            "Dato", format="DD/MM/YYYY", key="input_date"
         )
         st.text_input(
             "Forfatter", placeholder="Dit navn eller initialer", key="input_author"
@@ -130,16 +151,18 @@ if st.session_state.show_form:
         )
     st.markdown("</div></div>", unsafe_allow_html=True)
 else:
-    st.title("Generated Journal")
+    st.title("Genereret journal")
+    st.markdown("<div class='turquoise-bg'><div class='form-container'>", unsafe_allow_html=True)
     st.text_area(
-        "Headline", value=st.session_state.headline, key="headline_output"
+        "Headline", value=st.session_state.headline, key="headline_output",
+        kwargs={"class": "headlines"}
     )
     st.text_area(
-        "Generated Text", value=st.session_state.generated_text,
+        "Genereret tekst", value=st.session_state.generated_text,
         key="generated_text_output", disabled=True, height=200
     )
     st.text_area(
-        "Feedback to Supervisor", value=st.session_state.feedback,
+        "Feedback til supervisor", value=st.session_state.feedback,
         key="feedback_output", height=150
     )
     plain_text = (

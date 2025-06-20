@@ -30,6 +30,10 @@ div[data-testid="stForm"] {
     color: black;
 }
 .header {
+    display: block;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     text-align: center;
     font-size: 22px;
     font-weight: bold;
@@ -67,4 +71,11 @@ button[data-testid="stBaseButton-secondaryFormSubmit"]:hover {
 button[data-testid="stBaseButton-secondaryFormSubmit"] div[data-testid="stMarkdownContainer"] p {
     font-weight: bold !important;
     color: inherit !important;
+}
+
+.headlines {
+    font-size: 24px;
+    font-weight: bold;
+    color: #D97706; /* Dark Orange */
+    margin-bottom: 20px;
 }
