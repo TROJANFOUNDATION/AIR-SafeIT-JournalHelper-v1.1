@@ -8,6 +8,10 @@ div[data-testid="stForm"] {
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }  
 
+div[data-testid="stAlertContainer"] {
+    display: none;
+}  
+
 /* Style the container on the results page by selecting the container
    that follows the title's div. */
 

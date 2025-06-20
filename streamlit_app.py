@@ -153,19 +153,13 @@ else:
     st.title("Genereret journal")
 
     # Apply special styling to results container
-    st.markdown("""
-    <style>
-    .stHorizontalBlock + .stElementContainer + .stElementContainer + div[data-testid="stVerticalBlockBorderWrapper"] {
-        background-color: #C1E7E7 !important;  /* Turquoise */
-        padding: 30px;
-        border-radius: 10px;
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    }
     
-    </style>
-    """, unsafe_allow_html=True)
-
-    with st.container():
+    plain_text = (
+        f"Headline: {st.session_state.headline}\n"
+        f"Generated Text: {st.session_state.generated_text}\n"
+        f"Feedback to Supervisor: {st.session_state.feedback}\n"
+    )
+    with st.form("fakeform"):
         # Text areas inside the styled container
         st.text_area(
             "Headline", value=st.session_state.headline, key="headline_output",
