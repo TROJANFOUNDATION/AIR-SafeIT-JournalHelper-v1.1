@@ -137,3 +137,6 @@ textarea[aria-label="Genereret tekst"] {
     display: none !important; /* Hide the specific class */
 }
 
+#genereret-journal {
+    color: #000000;
+}
