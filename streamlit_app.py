@@ -171,7 +171,7 @@ else:
         )
         st.text_area(
             "Genereret tekst", value=st.session_state.generated_text,
-            key="generated_text_output", disabled=True, height=200
+            key="generated_text_output",
         )
         st.text_area(
             "Feedback til supervisor", value=st.session_state.feedback,
