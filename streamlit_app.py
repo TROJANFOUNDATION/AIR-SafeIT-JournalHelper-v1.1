@@ -4,6 +4,32 @@ import re
 from openai import OpenAI
 from st_copy_to_clipboard import st_copy_to_clipboard
 
+st.markdown(
+    """
+    <head>
+      <meta name="color-scheme" content="light">
+    </head>
+    """,
+    unsafe_allow_html=True,
+)
+
+st.markdown(
+    """
+    <style>
+    html, body {
+        background-color: #ffffff !important;
+        color: #000000 !important;
+    }
+    /* Force input fields, buttons etc. to use light colors */
+    input {
+        background-color: #ffffff !important;
+        color: #000000 !important;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
+
 # Initialize OpenAI client
 client = OpenAI(api_key=st.secrets["openai"]["api_key"])
 
