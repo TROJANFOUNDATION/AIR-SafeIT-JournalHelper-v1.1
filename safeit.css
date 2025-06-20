@@ -85,3 +85,18 @@ button[data-testid="stBaseButton-secondaryFormSubmit"] div[data-testid="stMarkdo
     color: #D97706; /* Dark Orange */
     margin-bottom: 20px;
 }
+
+.stAppToolbar {
+    display: none; /* Hide the default Streamlit toolbar */
+}
+
+div[data-testid="stMarkdownContainer"] > p {
+    font-size: 20px;
+    color: #333; /* Dark gray for better readability */
+    line-height: 1.5;
+}
+
+button > div[data-testid="stMarkdownContainer"] > p {
+    font-size: 14px;
+    color: #ffffff; /* Dark gray for better readability */
+}
