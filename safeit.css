@@ -1,6 +1,7 @@
-body {
-    background-color: white;
+body, .stMain {
+    background-color: white !important;
 }
+
 div[data-testid="stForm"] {
     background-color: #C1E7E7 !important;  /* Turquoise */
     padding: 30px;

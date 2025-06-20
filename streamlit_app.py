@@ -25,6 +25,10 @@ st.markdown(
         background-color: #ffffff !important;
         color: #000000 !important;
     }
+    textarea[aria-label="Journalen"] {
+        background-color: #ffffff !important;
+        color: #000000 !important;
+    }
     </style>
     """,
     unsafe_allow_html=True,
