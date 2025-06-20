@@ -155,15 +155,13 @@ else:
     # Apply special styling to results container
     st.markdown("""
     <style>
-    div[data-testid="stVerticalBlockBorderWrapper"] + .stElementContainer + .stElementContainer + div[data-testid="stVerticalBlockBorderWrapper"] {
+    .stHorizontalBlock + .stElementContainer + .stElementContainer + div[data-testid="stVerticalBlockBorderWrapper"] {
         background-color: #C1E7E7 !important;  /* Turquoise */
         padding: 30px;
         border-radius: 10px;
         box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     }
-    .stElementContainer + .stElementContainer + .stElementContainer + div[data-testid="stVerticalBlockBorderWrapper"] {
-        background-color: #ffffff !important;  /* Turquoise */
-    }
+    
     </style>
     """, unsafe_allow_html=True)
 
@@ -188,6 +186,7 @@ else:
             f"Feedback to Supervisor: {st.session_state.feedback}\n"
         )
         
+    with st.container():
         # Buttons in columns - still inside the results container
         col1, col2, col3 = st.columns(3)
         with col1:
