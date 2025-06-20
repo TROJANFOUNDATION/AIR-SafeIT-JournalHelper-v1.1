@@ -193,11 +193,15 @@ else:
         )
         
         # Create the copy text
+        # plain_text = (
+        #     f"Headline: {st.session_state.headline}\n"
+        #     f"Generated Text: {st.session_state.generated_text}\n"
+        #     f"Feedback to Supervisor: {st.session_state.feedback}\n"
+        # )
         plain_text = (
-            f"Headline: {st.session_state.headline}\n"
-            f"Generated Text: {st.session_state.generated_text}\n"
-            f"Feedback to Supervisor: {st.session_state.feedback}\n"
+             f"{st.session_state.generated_text}"
         )
+
         
     with st.container():
         # Buttons in columns - still inside the results container
