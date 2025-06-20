@@ -1,4 +1,4 @@
-body, .stMain {
+.stMain {
     background-color: white !important;
 }
 
@@ -14,14 +14,14 @@ div[data-testid="stAlertContainer"] {
 }  
 
 input::placeholder {
-  color: #333
+  color: #333;
 }
 
 .st-bq {
     background-color: transparent !important;
 }
 
-textarea::placeholder {
+textarea[aria-label="Journalen"]::placeholder {
   color: #333
 }
 
