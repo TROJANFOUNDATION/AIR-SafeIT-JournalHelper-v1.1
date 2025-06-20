@@ -155,7 +155,7 @@ else:
     # Apply special styling to results container
     st.markdown("""
     <style>
-    .stElementContainer + div[data-testid="stVerticalBlockBorderWrapper"] {
+    .stElementContainer + .stElementContainer + div[data-testid="stVerticalBlockBorderWrapper"] {
         background-color: #C1E7E7 !important;  /* Turquoise */
         padding: 30px;
         border-radius: 10px;
