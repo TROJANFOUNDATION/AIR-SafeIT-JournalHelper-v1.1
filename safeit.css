@@ -97,9 +97,18 @@ button > div[data-testid="stMarkdownContainer"] > p {
     font-size: 14px !important;
     color: #ffffff !important; /* Dark gray for better readability */
 }
-/* 
+
 textarea[aria-label="Genereret tekst"] {
   resize: none !important;
   overflow: hidden !important;
-  height: auto !important;
-} */
+  height: 50vh !important;
+}
+
+[class^="_profileContainer"] {
+    display: none !important; /* Hide the prefix */
+}
+
+[class^="_profilePreview"] {
+    display: none !important; /* Hide the prefix */
+}
+
