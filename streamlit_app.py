@@ -18,13 +18,7 @@ st.markdown(
     <style>
     html, body {
         background-color: #ffffff !important;
-
     }
-    /* Force input fields, buttons etc. to use light colors */
-    input {
-        background-color: #ffffff !important;
-    }
-    </style>
     """,
     unsafe_allow_html=True,
 )

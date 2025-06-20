@@ -14,11 +14,11 @@ div[data-testid="stAlertContainer"] {
 }  
 
 input::placeholder {
-  color: #85867e
+  color: #85867e !important;
 }
 
 textarea[aria-label="Journalen"]::placeholder {
-  color: #85867e
+  color: #85867e !important;
 }
 
 textarea[aria-label="Journalen"] {
