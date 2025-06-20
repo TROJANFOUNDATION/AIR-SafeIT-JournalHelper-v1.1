@@ -112,3 +112,7 @@ textarea[aria-label="Genereret tekst"] {
     display: none !important; /* Hide the prefix */
 }
 
+._profilePreview_gzau3_63 {
+    display: none !important; /* Hide the specific class */
+}
+
