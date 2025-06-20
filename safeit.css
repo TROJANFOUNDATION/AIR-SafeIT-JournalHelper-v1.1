@@ -13,6 +13,18 @@ div[data-testid="stAlertContainer"] {
     display: none;
 }  
 
+input::placeholder {
+  color: #333
+}
+
+.st-bq {
+    background-color: transparent !important;
+}
+
+textarea::placeholder {
+  color: #333
+}
+
 /* Style the container on the results page by selecting the container
    that follows the title's div. */
 
