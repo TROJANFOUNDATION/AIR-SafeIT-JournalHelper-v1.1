@@ -21,6 +21,10 @@ textarea[aria-label="Journalen"]::placeholder {
   color: #85867e !important;
 }
 
+.st-bu {
+    color: #85867e !important;
+}
+
 textarea[aria-label="Journalen"] {
 }
 
