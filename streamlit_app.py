@@ -205,16 +205,16 @@ else:
             f"Feedback to Supervisor: {st.session_state.feedback}\n"
         )
         
-with st.container():
-    # Buttons in columns - still inside the results container
-    col1, col2, col3 = st.columns(3)
-    with col1:
-        st_copy_to_clipboard(
-            plain_text,
-            before_copy_label='Tryk for at kopiere',
-            after_copy_label='Tekst kopieret!'
-        )
-    with col2:
-        st.button("Generér ny tekst", on_click=generate_new_text)
-    with col3:
-        st.button("Start forfra", on_click=start_over)
+    with st.container():
+        # Buttons in columns - still inside the results container
+        col1, col2, col3 = st.columns(3)
+        with col1:
+            st_copy_to_clipboard(
+                plain_text,
+                before_copy_label='Tryk for at kopiere',
+                after_copy_label='Tekst kopieret!'
+            )
+        with col2:
+            st.button("Generér ny tekst", on_click=generate_new_text)
+        with col3:
+            st.button("Start forfra", on_click=start_over)

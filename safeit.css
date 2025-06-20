@@ -14,22 +14,26 @@ div[data-testid="stAlertContainer"] {
 }  
 
 input::placeholder {
-  color: #333;
+  color: #92d418;
+}
+
+textarea[aria-label="Journalen"]::placeholder {
+  color: #85867e
+}
+
+input {
+  color: #9b1414;
+}
+
+textarea[aria-label="Journalen"] {
 }
 
 .st-bq {
     background-color: transparent !important;
 }
 
-textarea[aria-label="Journalen"]::placeholder {
-  color: #333
-}
-
-/* Style the container on the results page by selecting the container
-   that follows the title's div. */
-
-div[data-testid="stTextInput"], 
-div[data-testid="stTextArea"], 
+div[data-testid="stTextInput"],
+.stElementContainer > div[data-testid="stTextArea"], 
 div[data-testid="stDateInput"] {
     background-color: white !important;
     border-radius: 5px;
