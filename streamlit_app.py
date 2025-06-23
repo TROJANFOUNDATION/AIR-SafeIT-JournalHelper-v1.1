@@ -80,7 +80,7 @@ def generate_response(date_time, author, citizen, entry):
         {"role": "user",   "content": user_prompt}
     ]
     resp = client.chat.completions.create(
-        model="gpt-4o-mini",
+        model="gpt-4o-mini-2024-07-18",
         messages=messages,
         max_tokens=16384,
         temperature=0.7
