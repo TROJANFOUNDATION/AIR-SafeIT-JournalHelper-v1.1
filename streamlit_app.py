@@ -80,9 +80,9 @@ def generate_response(date_time, author, citizen, entry):
         {"role": "user",   "content": user_prompt}
     ]
     resp = client.chat.completions.create(
-        model="gpt-3.5-turbo",
+        model="gpt-4o-mini",
         messages=messages,
-        max_tokens=4096,
+        max_tokens=16384,
         temperature=0.7
     )
     return parse_response(resp)
